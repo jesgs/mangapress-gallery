@@ -15,14 +15,12 @@
  Text Domain: mangapress-gallery
  Domain Path: /languages
 */
+include_once ABSPATH . 'wp-admin/includes/plugin.php';
 
 add_action('plugins_loaded', array('MangaPress_Gallery', 'load_plugin'));
 
 class MangaPress_Gallery
 {
-
-
-    const VERSION = '0.0.0-alpha';
 
     const DOMAIN  = 'mangapress-gallery';
 
@@ -91,6 +89,7 @@ class MangaPress_Gallery
         $this->plugin_folder   = basename( __DIR__ );
         $this->plugin_path     = plugin_dir_path( __FILE__ );
         $this->plugin_url_path = plugin_dir_url( __FILE__ );
+        $this->plugin_data = get_plugin_data(__FILE__);
 
         load_plugin_textdomain(self::DOMAIN, false, dirname( plugin_basename( __FILE__ ) ) . '/languages');
 
@@ -99,18 +98,40 @@ class MangaPress_Gallery
 
 
     /**
-     * Initialize plugin
+     * Retrieve plugin data
+     *
+     * @param string $key Optional. Name of plugin data key to retrieve
+     * @return array|bool
      */
-    public function init()
+    public function get_plugin_data($key = '')
     {
-        add_action('do_meta_boxes', array($this, 'remove_mangapress_default_metabox'));
+        if (empty($key)) {
+            return $this->plugin_data;
+        }
+
+        if (isset($this->plugin_data[ ucwords($key) ])) {
+            return $this->plugin_data[ ucwords($key) ];
+        }
+
+        return false;
     }
 
 
     /**
-     * Remove default Manga+Press metabox
+     * Initialize plugin
      */
-    public function remove_mangapress_default_metabox()
+    public function init()
+    {
+        // methods called by actions/filters should be static — this allows the method
+        // to be removed from the action/filter easier than array($this, 'method')
+        add_action('do_meta_boxes', array('MangaPress_Gallery', 'do_meta_boxes'));
+    }
+
+
+    /**
+     * Remove default Manga+Press metabox and add new metabox
+     */
+    public static function do_meta_boxes()
     {
         remove_meta_box('comic-image', MangaPress_Posts::POST_TYPE, 'normal');
     }
