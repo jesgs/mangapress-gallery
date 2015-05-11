@@ -6,9 +6,9 @@
  *
  */
 /*
- Plugin Name: Gallery for Manga+Pree
+ Plugin Name: Gallery for Manga+Press
  Plugin URI: http://www.manga-press.com/
- Description: Adds gallery functionality to mangapress
+ Description: Adds gallery functionality to Manga+Press
  Version: 0.0.0-alpha
  Author: Jess Green
  Author URI: http://www.jesgreen.com
@@ -49,6 +49,12 @@ class MangaPress_Gallery
 
 
     /**
+     * Plugin data
+     */
+    protected $plugin_data;
+
+
+    /**
      * @var MangaPress_Gallery
      */
     protected static $instance;
@@ -63,6 +69,9 @@ class MangaPress_Gallery
 
 
     /**
+     * Get instance of
+     *
+     * @return MangaPress_Gallery
      */
     public static function get_instance()
     {
