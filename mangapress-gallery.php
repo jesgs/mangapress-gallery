@@ -91,7 +91,11 @@ class MangaPress_Gallery
         $this->plugin_url_path = plugin_dir_url( __FILE__ );
         $this->plugin_data = get_plugin_data(__FILE__);
 
-        load_plugin_textdomain(self::DOMAIN, false, dirname( plugin_basename( __FILE__ ) ) . '/languages');
+        load_plugin_textdomain(
+            self::DOMAIN,
+            false,
+            dirname( plugin_basename( __FILE__ ) ) . '/languages'
+        );
 
         add_action('init', array($this, 'init'), 500);
     }
@@ -122,18 +126,42 @@ class MangaPress_Gallery
      */
     public function init()
     {
-        // methods called by actions/filters should be static — this allows the method
-        // to be removed from the action/filter easier than array($this, 'method')
-        add_action('do_meta_boxes', array('MangaPress_Gallery', 'do_meta_boxes'));
+        add_action('do_meta_boxes', array('MangaPress_Gallery', 'remove_mangapress_default_metabox'));
+        add_action('do_meta_boxes', array('MangaPress_Gallery', 'add_mangapress_gallery_metabox'));
     }
 
 
     /**
      * Remove default Manga+Press metabox and add new metabox
      */
-    public static function do_meta_boxes()
+    public static function remove_mangapress_default_metabox()
     {
         remove_meta_box('comic-image', MangaPress_Posts::POST_TYPE, 'normal');
     }
+
+
+    /**
+     * Add Manga+Press Gallery metabox
+     */
+     public static function add_mangapress_gallery_metabox()
+     {
+         add_meta_box(
+             'comic-gallery',
+             __('Gallery', self::DOMAIN),
+             array('MangaPress_Gallery', 'gallery_metabox_cb'),
+             MangaPress_Posts::POST_TYPE,
+            'normal',
+            'high'
+         );
+     }
+
+
+    /**
+     * Gallery metabox callback
+     */
+     public static function gallery_metabox_cb()
+     {
+         echo "here";
+     }
 
 }

@@ -12,6 +12,7 @@ Manga+Press Gallery Edition allows a user to turn the comic pages into individua
 _Don't use just yet. Functionality is very rough or doesn't exist._ __Testers welcome!__
 ### 0.0.0-alpha
 * Rough stages. Removing default Manga+Press meta-box.
+* Adding new meta box calls.
 
 #### TODOs
 * Check for Manga+Press on activation. If Manga+Press doesn't exist, an erorr message should be displayed since Manga+Press Gallery Edition will require Manga+Press to be installed.
