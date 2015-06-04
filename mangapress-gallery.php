@@ -126,42 +126,11 @@ class MangaPress_Gallery
      */
     public function init()
     {
-        add_action('do_meta_boxes', array('MangaPress_Gallery', 'remove_mangapress_default_metabox'));
-        add_action('do_meta_boxes', array('MangaPress_Gallery', 'add_mangapress_gallery_metabox'));
+        /**
+         * Instead of removing the default Manga+Press meta-box, create hooks for
+         * Manga+Press Gallery to modify the meta-box behavior
+         */
     }
 
-
-    /**
-     * Remove default Manga+Press metabox and add new metabox
-     */
-    public static function remove_mangapress_default_metabox()
-    {
-        remove_meta_box('comic-image', MangaPress_Posts::POST_TYPE, 'normal');
-    }
-
-
-    /**
-     * Add Manga+Press Gallery metabox
-     */
-     public static function add_mangapress_gallery_metabox()
-     {
-         add_meta_box(
-             'comic-gallery',
-             __('Gallery', self::DOMAIN),
-             array('MangaPress_Gallery', 'gallery_metabox_cb'),
-             MangaPress_Posts::POST_TYPE,
-            'normal',
-            'high'
-         );
-     }
-
-
-    /**
-     * Gallery metabox callback
-     */
-     public static function gallery_metabox_cb()
-     {
-         echo "here";
-     }
 
 }
