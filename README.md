@@ -3,7 +3,7 @@
 * Contributors: Jess Green
 * License: GPLv2
 
-Turns Manga+Press into an image galery
+Turns Manga+Press into an image gallery
 
 ## Description
 Manga+Press Gallery Edition allows a user to turn the comic pages into individual galleries. The ability to navigate between each post still exists.
